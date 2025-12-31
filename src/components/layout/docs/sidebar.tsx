@@ -1,14 +1,14 @@
 'use client';
-import * as Base from '../sidebar/base';
-import { cn } from '../../../lib/cn';
-import { type ComponentProps, useRef } from 'react';
 import { cva } from 'class-variance-authority';
-import { createPageTreeRenderer } from '../sidebar/page-tree';
-import { createLinkItemRenderer } from '../sidebar/link-item';
+import { Sidebar as SidebarIcon } from 'lucide-react';
+import { type ComponentProps, useRef } from 'react';
+import { cn } from '../../../lib/cn';
+import { mergeRefs } from '../../../lib/merge-refs';
 import { buttonVariants } from '../../ui/button';
 import { SearchToggle } from '../search-toggle';
-import { Sidebar as SidebarIcon } from 'lucide-react';
-import { mergeRefs } from '../../../lib/merge-refs';
+import * as Base from '../sidebar/base';
+import { createLinkItemRenderer } from '../sidebar/link-item';
+import { createPageTreeRenderer } from '../sidebar/page-tree';
 
 const itemVariants = cva(
   'relative flex flex-row items-center gap-2 rounded-lg p-2 text-start text-fd-muted-foreground wrap-anywhere [&_svg]:size-4 [&_svg]:shrink-0',
@@ -31,11 +31,9 @@ function getItemOffset(depth: number) {
 }
 
 export {
-  SidebarProvider as Sidebar,
-  SidebarFolder,
-  SidebarCollapseTrigger,
-  SidebarViewport,
-  SidebarTrigger,
+  SidebarProvider as Sidebar, SidebarCollapseTrigger,
+  SidebarFolder, SidebarTrigger,
+  SidebarViewport
 } from '../sidebar/base';
 
 export function SidebarContent({
@@ -92,7 +90,7 @@ export function SidebarContent({
             <Base.SidebarCollapseTrigger
               className={cn(
                 buttonVariants({
-                  color: 'ghost',
+                  variant: 'ghost',
                   size: 'icon-sm',
                   className: 'rounded-lg',
                 }),

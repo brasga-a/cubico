@@ -1,4 +1,11 @@
+/** biome-ignore-all lint/a11y/useKeyWithClickEvents: <explanation> */
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: <explanation> */
 'use client';
+import { Presence } from '@radix-ui/react-presence';
+import { usePathname } from 'fumadocs-core/framework';
+import Link, { type LinkProps } from 'fumadocs-core/link';
+import { useMediaQuery } from 'fumadocs-core/utils/use-media-query';
+import { useOnChange } from 'fumadocs-core/utils/use-on-change';
 import { ChevronDown, ExternalLink } from 'lucide-react';
 import {
   type ComponentProps,
@@ -12,14 +19,8 @@ import {
   useRef,
   useState,
 } from 'react';
-import Link, { type LinkProps } from 'fumadocs-core/link';
-import { useOnChange } from 'fumadocs-core/utils/use-on-change';
+import scrollIntoView from 'scroll-into-view-if-needed';
 import { cn } from '../../../lib/cn';
-import {
-  ScrollArea,
-  type ScrollAreaProps,
-  ScrollViewport,
-} from '../../ui/scroll-area';
 import { isActive } from '../../../lib/urls';
 import {
   Collapsible,
@@ -28,10 +29,11 @@ import {
   CollapsibleTrigger,
   type CollapsibleTriggerProps,
 } from '../../ui/collapsible';
-import { useMediaQuery } from 'fumadocs-core/utils/use-media-query';
-import { Presence } from '@radix-ui/react-presence';
-import scrollIntoView from 'scroll-into-view-if-needed';
-import { usePathname } from 'fumadocs-core/framework';
+import {
+  ScrollArea,
+  type ScrollAreaProps,
+  ScrollViewport,
+} from '../../ui/scroll-area';
 
 interface SidebarContext {
   open: boolean;

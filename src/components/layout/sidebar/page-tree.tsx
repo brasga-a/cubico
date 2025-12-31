@@ -1,6 +1,9 @@
-import { useTreeContext, useTreePath } from 'fumadocs-ui/contexts/tree';
-import { type FC, type ReactNode, useMemo, Fragment } from 'react';
+/** biome-ignore-all lint/correctness/useExhaustiveDependencies: <explanation> */
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
+
 import type * as PageTree from 'fumadocs-core/page-tree';
+import { useTreeContext, useTreePath } from 'fumadocs-ui/contexts/tree';
+import { type FC, Fragment, type ReactNode, useMemo } from 'react';
 import type * as Base from './base';
 
 export interface SidebarPageTreeComponents {
