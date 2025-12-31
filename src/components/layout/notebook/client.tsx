@@ -1,5 +1,9 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
 'use client';
-import { cn } from '../../../lib/cn';
+import { usePathname } from 'fumadocs-core/framework';
+import Link from 'fumadocs-core/link';
+import { useIsScrollTop } from 'fumadocs-ui/utils/use-is-scroll-top';
+import { ChevronDown } from 'lucide-react';
 import {
   type ComponentProps,
   createContext,
@@ -12,21 +16,18 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useSidebar } from '../sidebar/base';
-import { ChevronDown } from 'lucide-react';
-import Link from 'fumadocs-core/link';
-import { usePathname } from 'fumadocs-core/framework';
-import { useIsScrollTop } from 'fumadocs-ui/utils/use-is-scroll-top';
-import {
-  LinkItem,
-  type LinkItemType,
-  type MenuItemType,
-} from '../link-item';
+import { cn } from '../../../lib/cn';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '../../ui/popover';
+import {
+  LinkItem,
+  type LinkItemType,
+  type MenuItemType,
+} from '../link-item';
+import { useSidebar } from '../sidebar/base';
 import {
   isTabActive,
   type SidebarTabWithProps,
