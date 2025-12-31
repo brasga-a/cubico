@@ -2,7 +2,7 @@
 /** biome-ignore-all lint/suspicious/useIterableCallbackReturn: <explanation> */
 'use client';
 import { cva } from 'class-variance-authority';
-import { MoonStar, SunDim } from 'lucide-react';
+import { Computer, MoonStar, SunDim } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { ComponentProps, useEffect, useState } from 'react';
 import { cn } from '../../lib/cn';
@@ -20,7 +20,7 @@ const itemVariants = cva(
 );
 
 const full = [
-  // ['system', Computer] as const,
+  ['system', Computer] as const,
   ['light', SunDim] as const,
   ['dark', MoonStar] as const,
 ];

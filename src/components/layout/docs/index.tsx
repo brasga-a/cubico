@@ -1,13 +1,45 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
 import type * as PageTree from 'fumadocs-core/page-tree';
+import { TreeContextProvider } from 'fumadocs-ui/contexts/tree';
+import { Languages, Sidebar as SidebarIcon } from 'lucide-react';
 import {
   type ComponentProps,
   type HTMLAttributes,
   type ReactNode,
   useMemo,
 } from 'react';
-import { Languages, Sidebar as SidebarIcon } from 'lucide-react';
 import { cn } from '../../../lib/cn';
 import { buttonVariants } from '../../ui/button';
+import {
+  LanguageToggle,
+  LanguageToggleText,
+} from '../language-toggle';
+import { LinkItem } from '../link-item';
+import {
+  LargeSearchToggle,
+  SearchToggle,
+} from '../search-toggle';
+import {
+  type BaseLayoutProps,
+  renderTitleNav,
+  resolveLinkItems,
+} from '../shared';
+import type { SidebarPageTreeComponents } from '../sidebar/page-tree';
+import {
+  getSidebarTabs,
+  type GetSidebarTabsOptions,
+} from '../sidebar/tabs';
+import {
+  SidebarTabsDropdown,
+  type SidebarTabWithProps,
+} from '../sidebar/tabs/dropdown';
+import { ThemeToggle } from '../theme-toggle';
+import {
+  LayoutBody,
+  LayoutContextProvider,
+  LayoutHeader,
+  LayoutTabs,
+} from './client';
 import {
   Sidebar,
   SidebarCollapseTrigger,
@@ -18,37 +50,6 @@ import {
   SidebarTrigger,
   SidebarViewport,
 } from './sidebar';
-import {
-  type BaseLayoutProps,
-  renderTitleNav,
-  resolveLinkItems,
-} from '../shared';
-import { LinkItem } from '../link-item';
-import {
-  LanguageToggle,
-  LanguageToggleText,
-} from '../language-toggle';
-import {
-  LayoutBody,
-  LayoutContextProvider,
-  LayoutHeader,
-  LayoutTabs,
-} from './client';
-import { TreeContextProvider } from 'fumadocs-ui/contexts/tree';
-import { ThemeToggle } from '../theme-toggle';
-import {
-  LargeSearchToggle,
-  SearchToggle,
-} from '../search-toggle';
-import {
-  getSidebarTabs,
-  type GetSidebarTabsOptions,
-} from '../sidebar/tabs';
-import type { SidebarPageTreeComponents } from '../sidebar/page-tree';
-import {
-  SidebarTabsDropdown,
-  type SidebarTabWithProps,
-} from '../sidebar/tabs/dropdown';
 
 export interface DocsLayoutProps extends BaseLayoutProps {
   tree: PageTree.Root;
@@ -159,7 +160,7 @@ export function DocsLayout({
                 <SidebarCollapseTrigger
                   className={cn(
                     buttonVariants({
-                      color: 'ghost',
+                      variant: 'ghost',
                       size: 'icon-sm',
                       className: 'mb-auto text-fd-muted-foreground',
                     }),
@@ -195,7 +196,7 @@ export function DocsLayout({
                     key={i}
                     item={item}
                     className={cn(
-                      buttonVariants({ size: 'icon-sm', color: 'ghost' }),
+                      buttonVariants({ size: 'icon-sm', variant: 'ghost' }),
                     )}
                     aria-label={item.label}
                   >
@@ -225,7 +226,7 @@ export function DocsLayout({
                     className={cn(
                       buttonVariants({
                         size: 'icon-sm',
-                        color: 'ghost',
+                        variant: 'ghost',
                         className: 'p-2',
                       }),
                     )}
@@ -248,7 +249,7 @@ export function DocsLayout({
               <SidebarTrigger
                 className={cn(
                   buttonVariants({
-                    color: 'ghost',
+                    variant: 'ghost',
                     size: 'icon-sm',
                     className: 'p-2',
                   }),
@@ -292,7 +293,7 @@ export function DocsLayout({
                     <SidebarTrigger
                       className={cn(
                         buttonVariants({
-                          color: 'ghost',
+                          variant: 'ghost',
                           size: 'icon-sm',
                           className: 'p-2',
                         }),
