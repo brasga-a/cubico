@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import './global.css';
 
 import { HomeLayout } from '@/components/layout/home';
+import CustomSearchDialog from '@/components/layout/search';
 import { baseOptions } from '@/lib/layout.shared';
 
 const inter = Inter({
@@ -14,7 +15,11 @@ export default function Layout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
-        <RootProvider>
+        <RootProvider
+          search={{
+            SearchDialog: CustomSearchDialog,
+          }}
+        >
           <HomeLayout 
             {...baseOptions()}
             links={[

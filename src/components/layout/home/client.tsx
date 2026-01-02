@@ -1,14 +1,16 @@
 /** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
+/** biome-ignore-all lint/correctness/useHookAtTopLevel: <explanation> */
 /** biome-ignore-all lint/a11y/useAriaPropsForRole: <explanation> */
 /** biome-ignore-all lint/a11y/useSemanticElements: <explanation> */
 /** biome-ignore-all lint/a11y/useFocusableInteractive: <explanation> */
 'use client';
 import NavUser from '@/components/layout/nav-user';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { cva } from 'class-variance-authority';
 import Link from 'fumadocs-core/link';
 import { useIsScrollTop } from 'fumadocs-ui/utils/use-is-scroll-top';
 import { ChevronDown, Cuboid, Languages } from 'lucide-react';
-import { type ComponentProps, Fragment, useMemo, useState } from 'react';
+import { type ComponentProps, Fragment, useEffect, useMemo, useState } from 'react';
 import { useScrollDirection } from '../../../hooks/use-scroll-direction';
 import { cn } from '../../../lib/cn';
 import { buttonVariants } from '../../ui/button';
@@ -22,8 +24,7 @@ import {
   NavigationMenuViewport,
 } from '../../ui/navigation-menu';
 import {
-  LanguageToggle,
-  LanguageToggleText,
+  LanguageToggle
 } from '../language-toggle';
 import { LinkItem } from '../link-item';
 import {
@@ -37,7 +38,6 @@ import {
   resolveLinkItems,
 } from '../shared';
 import { SlidingNavProvider } from '../sliding-nav-indicator';
-import { ThemeToggle } from '../theme-toggle';
 import type { HomeLayoutProps } from './index';
 
 export const navItemVariants = cva('[&_svg]:size-4', {
@@ -71,6 +71,8 @@ export function Header({
     const navItems: LinkItemType[] = [];
     const menuItems: LinkItemType[] = [];
 
+    
+
     for (const item of resolveLinkItems({ links, githubUrl })) {
       switch (item.on ?? 'all') {
         case 'menu':
@@ -88,9 +90,11 @@ export function Header({
     return { navItems, menuItems };
   }, [links, githubUrl]);
 
+  const isMobile = useIsMobile()
+
   return (
     <HeaderNavigationMenu transparentMode={nav.transparentMode}>
-      <div className='flex flex-col w-full '>
+      <div className='flex flex-col w-full'>
 
         {/* header top */}
         <div className='flex flex-row items-center py-3 justify-between'>
@@ -131,7 +135,65 @@ export function Header({
                   />
                 ))}
               </ul>
+
+
+
+              <div className='flex items-center justify-between gap-2'>
+
+                {/* mobile buttons */}
+                <ul className={cn( "hidden", isMobile && "flex flex-row items-center ms-auto")}>
+                  {searchToggle.enabled !== false &&
+                    (searchToggle.components?.sm ?? (
+                      <SearchToggle className="p-2" hideIfDisabled />
+                    ))}
+
+                  {/* nav items mobile*/}
+                  <NavigationMenuItem>
+
+                    {/* Mobile NavbarTrigger */}
+                    <NavigationMenuTrigger
+                      aria-label="Toggle Menu"
+                      className={cn(
+                        buttonVariants({
+                          size: 'icon',
+                          variant: 'ghost',
+                          className: 'group [&_svg]:size-5.5',
+                        }),
+                      )}
+                      onPointerMove={
+                        nav.enableHoverToOpen ? undefined : (e) => e.preventDefault()
+                      }
+                    >
+                      <ChevronDown className="transition-transform duration-300 group-data-[state=open]:rotate-180" />
+                    </NavigationMenuTrigger>
+
+                    <NavigationMenuContent className="flex flex-col p-4">
+                      {menuItems
+                        .filter((item) => !isSecondary(item))
+                        .map((item, i) => (
+                          <MobileNavigationMenuLinkItem
+                            key={i}
+                            item={item}
+                            className={cn(!isMobile && "hidden")}
+                          />
+                        ))}
+
+                      <div className="-ms-1.5 flex flex-row items-center gap-2 max-sm:mt-2">
+                        {menuItems.filter(isSecondary).map((item, i) => (
+                          <MobileNavigationMenuLinkItem
+                            key={i}
+                            item={item}
+                            className={cn(item.type === 'icon' && '-mx-1 first:ms-0')}
+                          />
+                        ))}
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                
+                </ul>
+
                 <NavUser/>
+                </div>
             </div>
         </div>
 
@@ -139,75 +201,14 @@ export function Header({
         <div>
           
           {/* nav items */}
-          <SlidingNavProvider className="flex flex-row items-center pb-2 gap-4 max-sm:hidden">
+          <SlidingNavProvider className={cn("flex flex-row items-center pb-2 gap-4", isMobile && "hidden")}>
             {navItems
               .filter((item) => !isSecondary(item))
               .map((item, i) => (
                 <NavigationMenuLinkItem key={i} item={item} className="text-sm" />
               ))}
           </SlidingNavProvider>
-
-          <ul className="flex flex-row items-center ms-auto -me-1.5 lg:hidden">
-            {searchToggle.enabled !== false &&
-              (searchToggle.components?.sm ?? (
-                <SearchToggle className="p-2" hideIfDisabled />
-              ))}
-
-            <NavigationMenuItem>
-
-              {/* Mobile NavbarTrigger */}
-              <NavigationMenuTrigger
-                aria-label="Toggle Menu"
-                className={cn(
-                  buttonVariants({
-                    size: 'icon',
-                    variant: 'ghost',
-                    className: 'group [&_svg]:size-5.5',
-                  }),
-                )}
-                onPointerMove={
-                  nav.enableHoverToOpen ? undefined : (e) => e.preventDefault()
-                }
-              >
-                <ChevronDown className="transition-transform duration-300 group-data-[state=open]:rotate-180" />
-              </NavigationMenuTrigger>
-
-              <NavigationMenuContent className="flex flex-col p-4 sm:flex-row sm:items-center sm:justify-end">
-                {menuItems
-                  .filter((item) => !isSecondary(item))
-                  .map((item, i) => (
-                    <MobileNavigationMenuLinkItem
-                      key={i}
-                      item={item}
-                      className="sm:hidden"
-                    />
-                  ))}
-
-                <div className="-ms-1.5 flex flex-row items-center gap-2 max-sm:mt-2">
-                  {menuItems.filter(isSecondary).map((item, i) => (
-                    <MobileNavigationMenuLinkItem
-                      key={i}
-                      item={item}
-                      className={cn(item.type === 'icon' && '-mx-1 first:ms-0')}
-                    />
-                  ))}
-                  <div role="separator" className="flex-1" />
-                  {i18n && (
-                    <LanguageToggle>
-                      <Languages className="size-5" />
-                      <LanguageToggleText />
-                      <ChevronDown className="size-3 text-fd-muted-foreground" />
-                    </LanguageToggle>
-                  )}
-                  {themeSwitch.enabled !== false &&
-                  (themeSwitch.component ?? (
-                    <ThemeToggle mode={themeSwitch.mode ?? 'light-dark-system'} />
-                  ))}
-                </div>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
           
-          </ul>
         </div>
       </div>
     </HeaderNavigationMenu>
@@ -227,7 +228,15 @@ function HeaderNavigationMenu({
   transparentMode?: NavOptions['transparentMode'];
 }) {
   const [value, setValue] = useState('');
+  const isMobile = useIsMobile();
   const isTop = useIsScrollTop({ enabled: transparentMode === 'top' }) ?? true;
+
+  // Fechar menu quando mudar para desktop
+  useEffect(() => {
+    if (!isMobile) {
+      setValue('');
+    }
+  }, [isMobile]);
   const isTransparent =
     transparentMode === 'top' ? isTop : transparentMode === 'always';
   const { scrollDirection, isAtTop } = useScrollDirection({ threshold: 10 });

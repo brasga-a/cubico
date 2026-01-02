@@ -1,6 +1,6 @@
 'use client';
-import * as React from 'react';
 import * as Primitive from '@radix-ui/react-navigation-menu';
+import * as React from 'react';
 import { cn } from '../../lib/cn';
 
 export type NavigationMenuContentProps = Primitive.NavigationMenuContentProps;
@@ -16,7 +16,7 @@ const NavigationMenuItem = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <Primitive.NavigationMenuItem
     ref={ref}
-    className={cn('list-none', className)}
+    className={cn('list-none', className, )}
     {...props}
   >
     {children}
@@ -48,6 +48,7 @@ const NavigationMenuContent = React.forwardRef<
     className={cn(
       'absolute inset-x-0 top-0 overflow-auto fd-scroll-container max-h-[80svh] data-[motion=from-end]:animate-fd-enterFromRight data-[motion=from-start]:animate-fd-enterFromLeft data-[motion=to-end]:animate-fd-exitToRight data-[motion=to-start]:animate-fd-exitToLeft',
       className,
+      
     )}
     {...props}
   />
@@ -60,12 +61,13 @@ const NavigationMenuViewport = React.forwardRef<
   React.ComponentRef<typeof Primitive.Viewport>,
   React.ComponentPropsWithoutRef<typeof Primitive.Viewport>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className="flex w-full justify-center">
+  <div ref={ref} className={cn("flex w-full justify-center")}>
     <Primitive.Viewport
       {...props}
       className={cn(
         'relative h-(--radix-navigation-menu-viewport-height) w-full origin-[top_center] overflow-hidden transition-[width,height] duration-300 data-[state=closed]:animate-fd-nav-menu-out data-[state=open]:animate-fd-nav-menu-in',
         className,
+        
       )}
     />
   </div>
@@ -73,11 +75,6 @@ const NavigationMenuViewport = React.forwardRef<
 NavigationMenuViewport.displayName = Primitive.Viewport.displayName;
 
 export {
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuContent,
-  NavigationMenuTrigger,
-  NavigationMenuLink,
-  NavigationMenuViewport,
+  NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport
 };
+

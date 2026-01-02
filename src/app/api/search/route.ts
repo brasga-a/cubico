@@ -3,5 +3,19 @@ import { createFromSource } from 'fumadocs-core/search/server';
 
 export const { GET } = createFromSource(source, {
   // https://docs.orama.com/docs/orama-js/supported-languages
-  language: 'english',
+  language: 'portuguese',
+  
+  buildIndex(page) {
+
+    const materia = page.url.split('/')[2];
+
+    return {
+      title: page.data.title,
+      description: page.data.description,
+      url: page.url,
+      id: page.url,
+      structuredData: page.data.structuredData,
+      tag: materia,
+    }
+  },
 });

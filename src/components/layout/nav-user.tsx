@@ -19,7 +19,6 @@ import {
   LogOut,
   Settings
 } from "lucide-react"
-import { Button } from "../ui/button"
 import { ThemeToggle } from "./theme-toggle"
 
 
@@ -33,7 +32,7 @@ export default function NavUser() {
         </Avatar>  
       </DropdownMenuTrigger>
       <DropdownMenuContent
-            className="w-(--radix-dropdown-menu-trigger-width) !p-2 min-w-62 rounded-md bg-background"
+            className="w-(--radix-dropdown-menu-trigger-width) !p-2 min-w-62 rounded-md bg-fd-popover/20 backdrop-blur-lg text-sm text-fd-accent-foreground dark:text-fd-popover-foreground shadow-lg"
             align="end"
             sideOffset={10}
           >
@@ -69,10 +68,10 @@ export default function NavUser() {
               Sair
               <LogOut />
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
+            {/* <DropdownMenuSeparator />
             <div>
-              <Button className="h-8 w-full !p-0 !px-2 mt-2 mb-1.5">Assinar Pro</Button>
-            </div>
+              <Button className="h-8 w-full !p-0 !px-2 mt-2 mb-1.5">Assinar Plus</Button>
+            </div> */}
           </DropdownMenuContent>
     </DropdownMenu>
   )
