@@ -101,7 +101,9 @@ export function Header({
             })}
             {nav.children}
           </div>
-          <div className='flex items-center justify-center flex-1'>
+
+          {/* Barra de pesquisa */}
+          <div className='hidden md:flex items-center justify-center flex-1'>
             {searchToggle.enabled !== false &&
           (searchToggle.components?.lg ?? (
             <LargeSearchToggle
@@ -110,6 +112,7 @@ export function Header({
             />
           ))}
           </div>
+
             <div className='flex flex-row gap-2 items-center justify-center'>
               
               {i18n && (
@@ -144,12 +147,15 @@ export function Header({
               ))}
           </SlidingNavProvider>
 
-        <ul className="flex flex-row items-center ms-auto -me-1.5 lg:hidden">
+          <ul className="flex flex-row items-center ms-auto -me-1.5 lg:hidden">
             {searchToggle.enabled !== false &&
               (searchToggle.components?.sm ?? (
                 <SearchToggle className="p-2" hideIfDisabled />
               ))}
+
             <NavigationMenuItem>
+
+              {/* Mobile NavbarTrigger */}
               <NavigationMenuTrigger
                 aria-label="Toggle Menu"
                 className={cn(
@@ -165,6 +171,7 @@ export function Header({
               >
                 <ChevronDown className="transition-transform duration-300 group-data-[state=open]:rotate-180" />
               </NavigationMenuTrigger>
+
               <NavigationMenuContent className="flex flex-col p-4 sm:flex-row sm:items-center sm:justify-end">
                 {menuItems
                   .filter((item) => !isSecondary(item))
@@ -175,6 +182,7 @@ export function Header({
                       className="sm:hidden"
                     />
                   ))}
+
                 <div className="-ms-1.5 flex flex-row items-center gap-2 max-sm:mt-2">
                   {menuItems.filter(isSecondary).map((item, i) => (
                     <MobileNavigationMenuLinkItem
@@ -198,8 +206,8 @@ export function Header({
                 </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
+          
           </ul>
-
         </div>
       </div>
     </HeaderNavigationMenu>

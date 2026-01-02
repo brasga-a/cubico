@@ -1,4 +1,6 @@
 'use client';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { cn } from '@/lib/utils';
 import { usePathname } from 'fumadocs-core/framework';
 import Link from 'fumadocs-core/link';
 import { type ComponentProps, type ReactNode, useEffect, useRef } from 'react';
@@ -104,6 +106,8 @@ export function LinkItem({
   const itemRef = useRef<HTMLDivElement>(null);
   const itemId = item.url;
 
+  const isMobile = useIsMobile()
+
   const activeType = item.active ?? 'url';
   const active =
     activeType !== 'none' &&
@@ -130,9 +134,16 @@ export function LinkItem({
       {...props}
       data-active={active}
     >
-      <div ref={itemRef} className="relative px-2 py-1">
-        {props.children}
-      </div>
+
+        <div 
+          ref={itemRef} 
+          className={cn(
+            "relative px-2 py-1",
+            isMobile && active && "bg-blue-500/20 rounded-md w-full"
+          )}>
+          {props.children}
+        </div>
+      
     </Link>
   );
 }

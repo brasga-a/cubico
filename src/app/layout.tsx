@@ -20,7 +20,7 @@ export default function Layout({ children }: LayoutProps<'/'>) {
             links={[
               {
                 text: 'Matérias',
-                url: '/docs'
+                url: '/materias'
               },
               {
                 text: 'Questões',
