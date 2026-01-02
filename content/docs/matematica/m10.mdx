@@ -1,0 +1,196 @@
+---
+title: Função Afim
+description: Entenda as funções de primeiro grau, seus gráficos e propriedades fundamentais
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+# Função Afim
+
+## Definição
+
+Uma **função afim** (ou função de primeiro grau) é toda função $f: \mathbb{R} \to \mathbb{R}$ definida por:
+
+$$
+f(x) = ax + b
+$$
+
+onde:
+- $a \in \mathbb{R}^*$ (coeficiente angular - deve ser diferente de zero)
+- $b \in \mathbb{R}$ (coeficiente linear)
+
+<Callout type="info">
+  **Observação importante:** Se $a = 0$, a função deixa de ser afim e passa a ser uma função constante $f(x) = b$.
+</Callout>
+
+---
+
+## Gráfico da Função Afim
+
+O gráfico de uma função afim é sempre uma **reta não vertical**.
+
+### Elementos importantes do gráfico
+
+<Steps>
+
+<Step>
+### Coeficiente Linear ($b$)
+
+O valor de $b$ representa o ponto onde a reta **intercepta o eixo y**.
+
+**Coordenadas do ponto:** $(0, b)$
+</Step>
+
+<Step>
+### Raiz (ou Zero) da Função
+
+A raiz é o valor de $x$ para o qual $f(x) = 0$.
+
+Para encontrar a raiz:
+$$
+ax + b = 0 \implies x = -\frac{b}{a}
+$$
+
+**Coordenadas do ponto:** $\left(-\frac{b}{a}, 0\right)$
+</Step>
+
+<Step>
+### Coeficiente Angular ($a$)
+
+O valor de $a$ determina a **inclinação** da reta:
+
+- Se $a > 0$: função **crescente** (reta sobe da esquerda para direita)
+- Se $a < 0$: função **decrescente** (reta desce da esquerda para direita)
+</Step>
+
+</Steps>
+
+---
+
+## Comportamento da Função
+
+<Tabs items={['Função Crescente', 'Função Decrescente']}>
+  <Tab value="Função Crescente">
+    ### Quando $a > 0$
+    
+    A função é **crescente** em todo o seu domínio.
+```
+    x₁ < x₂  ⟹  f(x₁) < f(x₂)
+```
+    
+    **Características:**
+    - À medida que $x$ aumenta, $f(x)$ também aumenta
+    - A reta forma um ângulo agudo com o eixo x (sobe)
+  </Tab>
+  
+  <Tab value="Função Decrescente">
+    ### Quando $a < 0$
+    
+    A função é **decrescente** em todo o seu domínio.
+```
+    x₁ < x₂  ⟹  f(x₁) > f(x₂)
+```
+    
+    **Características:**
+    - À medida que $x$ aumenta, $f(x)$ diminui
+    - A reta forma um ângulo obtuso com o eixo x (desce)
+  </Tab>
+</Tabs>
+
+---
+
+## Estudo do Sinal
+
+O estudo do sinal analisa quando a função é **positiva**, **negativa** ou **nula**.
+
+### Método prático
+
+<Steps>
+
+<Step>
+### 1. Encontre a raiz
+
+Calcule $x_0 = -\frac{b}{a}$
+</Step>
+
+<Step>
+### 2. Analise o sinal de $a$
+
+- Se $a > 0$: a função é **negativa antes** da raiz e **positiva depois**
+- Se $a < 0$: a função é **positiva antes** da raiz e **negativa depois**
+</Step>
+
+</Steps>
+
+### Tabela de sinais
+
+Para $a > 0$:
+
+| Intervalo | Sinal de $f(x)$ |
+|-----------|-----------------|
+| $x < -\frac{b}{a}$ | $f(x) < 0$ (negativo) |
+| $x = -\frac{b}{a}$ | $f(x) = 0$ (zero) |
+| $x > -\frac{b}{a}$ | $f(x) > 0$ (positivo) |
+
+Para $a < 0$:
+
+| Intervalo | Sinal de $f(x)$ |
+|-----------|-----------------|
+| $x < -\frac{b}{a}$ | $f(x) > 0$ (positivo) |
+| $x = -\frac{b}{a}$ | $f(x) = 0$ (zero) |
+| $x > -\frac{b}{a}$ | $f(x) < 0$ (negativo) |
+
+---
+
+## Exemplos Práticos
+
+### Exemplo 1: Identificando os coeficientes
+
+Dada a função $f(x) = 3x - 6$:
+
+- **Coeficiente angular:** $a = 3$ (função crescente)
+- **Coeficiente linear:** $b = -6$ (intercepta y em -6)
+- **Raiz:** $x = -\frac{(-6)}{3} = 2$
+
+<Callout type="success">
+  Como $a = 3 > 0$, a função é **crescente** e a reta sobe da esquerda para direita.
+</Callout>
+
+### Exemplo 2: Estudo do sinal
+
+Para $f(x) = -2x + 8$:
+
+1. **Raiz:** $-2x + 8 = 0 \implies x = 4$
+2. **Sinal de a:** $a = -2 < 0$ (decrescente)
+
+**Resultado:**
+- $f(x) > 0$ quando $x < 4$
+- $f(x) = 0$ quando $x = 4$
+- $f(x) < 0$ quando $x > 4$
+
+---
+
+## Resumo Visual
+```mermaid
+graph LR
+    A[Função Afim: f(x) = ax + b] --> B{a > 0?}
+    B -->|Sim| C[Função Crescente]
+    B -->|Não| D[Função Decrescente]
+    C --> E[Reta sobe ↗]
+    D --> F[Reta desce ↘]
+```
+
+<Callout type="warn">
+  **Atenção:** Lembre-se que na função afim, $a$ **nunca pode ser zero**. Se $a = 0$, temos uma função constante!
+</Callout>
+
+---
+
+## Dicas para Exercícios
+
+1. **Sempre identifique $a$ e $b$ primeiro**
+2. **Calcule a raiz** usando $x = -\frac{b}{a}$
+3. **Verifique o sinal de $a$** para determinar se é crescente ou decrescente
+4. **Desenhe um esboço do gráfico** para visualizar melhor
