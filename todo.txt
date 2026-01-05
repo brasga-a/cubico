@@ -1,1 +1,1 @@
-Caixa de pesquisa está lenta e um pouco travada. (Pesado?)
+usar zustand para criar userSettings()
