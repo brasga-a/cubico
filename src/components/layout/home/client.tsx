@@ -6,6 +6,7 @@
 'use client';
 import NavUser from '@/components/layout/nav-user';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useSettings } from '@/hooks/use-settings';
 import { cva } from 'class-variance-authority';
 import Link from 'fumadocs-core/link';
 import { useIsScrollTop } from 'fumadocs-ui/utils/use-is-scroll-top';
@@ -230,6 +231,7 @@ function HeaderNavigationMenu({
   const [value, setValue] = useState('');
   const isMobile = useIsMobile();
   const isTop = useIsScrollTop({ enabled: transparentMode === 'top' }) ?? true;
+  const { settings } = useSettings();
 
   // Fechar menu quando mudar para desktop
   useEffect(() => {
@@ -241,8 +243,8 @@ function HeaderNavigationMenu({
     transparentMode === 'top' ? isTop : transparentMode === 'always';
   const { scrollDirection, isAtTop } = useScrollDirection({ threshold: 10 });
 
-  // Show header when: at top, scrolling up, or menu is open
-  const isVisible = isAtTop || scrollDirection === 'up' || value.length > 0;
+  // Show header when: at top, scrolling up, menu is open, or hideHeaderOnScroll is disabled
+  const isVisible = !settings.hideHeaderOnScroll || isAtTop || scrollDirection === 'up' || value.length > 0;
 
   return (
     <NavigationMenu value={value} onValueChange={setValue} asChild>

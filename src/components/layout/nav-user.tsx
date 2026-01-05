@@ -19,17 +19,31 @@ import {
   LogOut,
   Settings
 } from "lucide-react"
+import { useState } from "react"
+import { DialogSettings } from "../settings/dialog-settings"
 import { ThemeToggle } from "./theme-toggle"
 
 
 export default function NavUser() {
-  return ( 
-    <DropdownMenu>
+
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+
+  const handleSettingsOpenChange = (open: boolean) => {
+    setSettingsOpen(open)
+    if (open) {
+      setDropdownOpen(false)
+    }
+  }
+
+  return (
+    <>
+      <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
       <DropdownMenuTrigger>
         <Avatar className="h-8 w-8 rounded-full">
           <AvatarImage src={'https://github.com/brasga-a.png'} alt={'profile'} />
           <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-        </Avatar>  
+        </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) !p-2 min-w-62 rounded-md bg-fd-popover/20 backdrop-blur-lg text-sm text-fd-accent-foreground dark:text-fd-popover-foreground shadow-lg"
@@ -48,13 +62,13 @@ export default function NavUser() {
                 </div>
               </div>
             </DropdownMenuLabel>
-            
+
             <DropdownMenuGroup>
               <DropdownMenuItem className="justify-between h-10">
                 Perfil
                 <CircleUser />
               </DropdownMenuItem>
-              <DropdownMenuItem className="justify-between h-10">
+              <DropdownMenuItem className="justify-between h-10" onSelect={() => handleSettingsOpenChange(true)}>
                 Configurações
                 <Settings />
               </DropdownMenuItem>
@@ -64,7 +78,7 @@ export default function NavUser() {
               </div>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="justify-between h-10">
+            <DropdownMenuItem className="mt-2 justify-between h-10">
               Sair
               <LogOut />
             </DropdownMenuItem>
@@ -73,6 +87,8 @@ export default function NavUser() {
               <Button className="h-8 w-full !p-0 !px-2 mt-2 mb-1.5">Assinar Plus</Button>
             </div> */}
           </DropdownMenuContent>
-    </DropdownMenu>
+      </DropdownMenu>
+      <DialogSettings open={settingsOpen} onOpenChange={handleSettingsOpenChange} />
+    </>
   )
 }

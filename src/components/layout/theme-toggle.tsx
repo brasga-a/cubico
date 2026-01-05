@@ -12,7 +12,7 @@ const itemVariants = cva(
   {
     variants: {
       active: {
-        true: 'border border-fd-muted text-fd-accent-foreground',
+        true: 'outline -outline-offset-1 outline-fd-accent bg-fd-background/20  text-fd-accent-foreground',
         false: 'text-fd-muted-foreground',
       },
     },
@@ -40,7 +40,7 @@ export function ThemeToggle({
   }, []);
 
   const container = cn(
-    'inline-flex items-center rounded-full border-[0.5px]',
+    'inline-flex items-center rounded-full -outline-offset-1 outline-fd-accent outline',
     className,
   );
 
@@ -79,7 +79,7 @@ export function ThemeToggle({
           className={cn(itemVariants({ active: value === key }))}
           onClick={() => setTheme(key)}
         >
-          <Icon className="!size-4"  />
+          <Icon className="!size-3.5"  />
         </button>
       ))}
     </div>

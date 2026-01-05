@@ -16,6 +16,8 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useScrollDirection } from '../../../hooks/use-scroll-direction';
+import { useSettings } from '../../../hooks/use-settings';
 import { cn } from '../../../lib/cn';
 import {
   Popover,
@@ -78,9 +80,21 @@ export function LayoutContextProvider({
 export function LayoutHeader(props: ComponentProps<'header'>) {
   const { open } = useSidebar();
   const { isNavTransparent } = use(LayoutContext)!;
+  const { settings } = useSettings();
+  const { scrollDirection, isAtTop } = useScrollDirection({ threshold: 10 });
+
+  const isVisible = !settings.hideHeaderOnScroll || isAtTop || scrollDirection === 'up' || open;
 
   return (
-    <header data-transparent={isNavTransparent && !open} {...props}>
+    <header
+      data-transparent={isNavTransparent && !open}
+      {...props}
+      className={cn(
+        'transition-transform duration-300',
+        !isVisible && '-translate-y-full',
+        props.className,
+      )}
+    >
       {props.children}
     </header>
   );
